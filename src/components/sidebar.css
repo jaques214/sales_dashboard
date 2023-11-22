@@ -1,0 +1,53 @@
+.logo {
+    display: flex;
+    margin: 5px 8px 15px 0;
+    align-content: center;
+}
+
+.logo p {
+    font-weight: bold;
+    color: #EB1616;
+}
+
+.truck-icon {
+    margin: 0 auto;
+    color: #EB1616;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    border-radius: 0 30px 30px 0;
+    color: #6C7293;
+    border-left: 3px solid #191c24;
+    font-weight: 500;
+    padding: 7px 20px;
+}
+
+.nav-item:hover {
+    color: #EB1616;
+    border-left: 3px solid #EB1616;
+    background-color: #000;
+    cursor: pointer;
+}
+
+.nav-item:hover .dashboard-icon,
+.active .dashboard-icon {
+    color: #EB1616;
+    /* margin-left: -3px; */
+}
+
+.active {
+    color: #EB1616;
+    border-left: 3px solid #EB1616;
+    background-color: #000;
+}
+  
+.sidebar {
+    background-color: #191c24;
+    position: fixed;
+    width: 285px;
+    height: 100%;
+    padding: 15px 10px;
+}
