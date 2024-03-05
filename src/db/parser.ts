@@ -22,8 +22,7 @@ const readXMLFile = () => {
     const path = './src/files/SAFT_TP1_01-01-2022_31-12-2022.xml';
     try {
         const data = readFileSync(path, 'utf8');
-        const jsonObj = parser.parse(data);
-        return jsonObj;
+        return parser.parse(data);
     } catch (err) {
         console.error(err);
         return "";

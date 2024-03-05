@@ -37,13 +37,13 @@ async function main() {
     await db.insert(header).values(newHeader).returning();
 
     const newAddresses: NewAddress[] = customers01.map((customer: Customer) => {
-        const billingAdddress: Address = customer.billingAddress;
+        const billingAddress: Address = customer.billingAddress;
 
         return {
-            city: billingAdddress.city,
-            addressDetail: billingAdddress.addressDetail,
-            postalCode: billingAdddress.postalCode,
-            country: billingAdddress.country,
+            city: billingAddress.city,
+            addressDetail: billingAddress.addressDetail,
+            postalCode: billingAddress.postalCode,
+            country: billingAddress.country,
         }
     });
 
@@ -79,7 +79,7 @@ async function main() {
     const insertedSupplierAddresses = await db.insert(addresses).values(newSupplierAddresses).returning();
 
     const newSuppliers = suppliers01.map((supplier: Supplier) => {
-        const supplierAddress: Address = supplier.billingAddress;;
+        const supplierAddress: Address = supplier.billingAddress;
         const stringValue = supplier.supplierID.substring(0, supplier.supplierID.length - 2);
 
         const addr = insertedSupplierAddresses.find((element) => {

@@ -1,8 +1,18 @@
 'use server';
 
-import { Product, addresses, customers, invoices, products, suppliers, transactions, db } from '@/db/schema'
-import { eq, sql } from 'drizzle-orm';
-import { RowList } from 'postgres';
+import {
+    addresses,
+    customers,
+    db,
+    invoiceLines,
+    invoices,
+    Product,
+    products,
+    suppliers,
+    taxTable,
+    transactions
+} from '@/db/schema'
+import {asc, desc, eq, sql} from 'drizzle-orm';
 
 type InvoiceTable = {
     id: string;
@@ -34,6 +44,13 @@ type CustomerPerCity = {
     city: string | null,
 }
 
+type TopProducts = {
+    product: string | null,
+    unit: string | null,
+    quantity: number,
+    invoicetotal: number,
+}
+
 export async function getInvoices() {
     let filteredInvoices: InvoiceTable[] = [];
 
@@ -51,7 +68,6 @@ export async function getInvoices() {
         console.error(error)
     }
 
-    //console.log(filteredInvoices)
     return filteredInvoices;
 }
 
@@ -69,7 +85,6 @@ export async function getPurchases() {
         console.error(error)
     }
 
-    //console.log(filteredPurchases)
     return filteredPurchases;
 }
 
@@ -91,7 +106,6 @@ export async function getSuppliers() {
         console.error(error)
     }
 
-    //console.log(allSuppliers)
     return allSuppliers;
 }
 
@@ -113,7 +127,6 @@ export async function getCustomers() {
         console.error(error)
     }
 
-    //console.log(allCustomers)
     return allCustomers;
 }
 
@@ -127,7 +140,6 @@ export async function getProducts() {
         console.error(error)
     }
 
-    //console.log(allProducts)
     return allProducts;
 }
 
@@ -140,12 +152,113 @@ export async function getCustomersPerCity() {
             city: addresses.city
         }).from(addresses).innerJoin(customers, eq(addresses.id, customers.billingAddressID))
             .groupBy(sql`${addresses.city}`)
-
-        console.log(customersPerCity);
     }
     catch (error) {
         console.error(error)
     }
 
     return customersPerCity;
+}
+
+export async function getTopProducts() {
+    let topProducts: TopProducts[] = [];
+
+    try {
+        topProducts = await db.select({
+            product: products.description,
+            unit: invoiceLines.unitPrice,
+            quantity: sql<number>`sum(${invoiceLines.quantity})`,
+            invoicetotal: sql<number>`sum(${invoiceLines.creditAmount})`,
+        }).from(invoiceLines).innerJoin(products, eq(invoiceLines.productCode, products.id))
+            .groupBy(sql`${products.description}, ${invoiceLines.unitPrice}`).limit(3).orderBy(sql<number>`sum(${invoiceLines.creditAmount}) desc`)
+    }
+    catch (error) {
+        console.error(error)
+    }
+
+    return topProducts;
+}
+
+export async function getInvoiceSize() {
+    let numberInvoices: { count: number }[] = [];
+
+    try {
+        numberInvoices = await db.select({
+            count: sql<number>`cast(count(${invoices.id}) as int)`,
+        }).from(invoices)
+    }
+    catch (error) {
+        console.error(error)
+    }
+
+    return numberInvoices[0].count;
+}
+
+export async function getSalesPerMonth() {
+    let salesPerMonth: {netTotal: number, date: number }[] = [];
+
+    try {
+        salesPerMonth = await db.select({
+            netTotal: sql<number>`sum(${invoices.netTotal})`,
+            date: sql<number>`EXTRACT(MONTH FROM ${invoices.invoiceDate})`
+        }).from(invoices)
+        .groupBy(sql<number>`EXTRACT(MONTH FROM ${invoices.invoiceDate})`)
+        .orderBy(asc(sql<number>`EXTRACT(MONTH FROM ${invoices.invoiceDate})`))
+    }
+    catch (error) {
+        console.error(error)
+    }
+
+    return salesPerMonth;
+}
+
+export async function getProductsByCategory() {
+    let productsByCategory: {category: string | null, qtd: number }[] = [];
+
+    try {
+        productsByCategory = await db.select({
+            category: products.productGroup,
+            qtd: sql<number>`sum(${invoiceLines.quantity})`,
+        }).from(invoiceLines).innerJoin(products, eq(invoiceLines.productCode, products.id))
+        .groupBy(sql<number>`sum(${invoiceLines.quantity})`)
+
+    }
+    catch (error) {
+        console.error(error)
+    }
+
+    return productsByCategory;
+}
+
+export async function getTotalRevenue() {
+    try {
+        const totalRevenue = await db.select({
+            revenue: sql<number>`sum(${invoices.grossTotal})`,
+        }).from(invoices)
+
+        const { revenue } = totalRevenue[0];
+        return revenue;
+    }
+    catch (error) {
+        console.error(error)
+    }
+}
+
+export async function getRevenueByProduct() {
+    try {
+        return await db.select({
+            product: products.description,
+            revenue: sql<number>`sum(
+            ${invoiceLines.creditAmount} + ${invoiceLines.creditAmount} * (${taxTable.taxPercentage} / 100)
+            )`
+        }).from(invoiceLines).innerJoin(products, eq(invoiceLines.productCode, products.id))
+            .innerJoin(taxTable, eq(invoiceLines.taxTableID, taxTable.id))
+            .groupBy(products.description)
+            .orderBy(desc(sql<number>`sum(
+            ${invoiceLines.creditAmount} + ${invoiceLines.creditAmount} * (${taxTable.taxPercentage} / 100)
+            )`));
+    }
+    catch (error) {
+        console.error(error)
+    }
 }
