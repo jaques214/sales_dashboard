@@ -1,10 +1,10 @@
 'use client';
 
 import * as React from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, ChartOptions, Title } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 type PieData = {
     labels: string[],
@@ -18,7 +18,7 @@ type PieData = {
     ],
 };
 
-export function Chart({ labels, pieData }: { labels: string[], pieData: number[] }) {
+export function PieChart({ labels, pieData }: { labels: string[], pieData: number[] }) {
     const data: PieData = {
         labels: labels,
         datasets: [
@@ -45,10 +45,10 @@ export function Chart({ labels, pieData }: { labels: string[], pieData: number[]
         ],
     };
 
-    const options = {
+    const options: ChartOptions<"pie"> = {
         plugins: {
             legend: {
-                position: 'bottom',
+                position: "bottom",
                 labels: {
                     boxWidth: 20,
                     boxHeight: 20,
@@ -60,6 +60,7 @@ export function Chart({ labels, pieData }: { labels: string[], pieData: number[]
             title: {
                 display: true,
                 color: "#fff",
+                position: "top",
                 text: 'Customers Per City',
                 font: {
                     size: 24
@@ -73,5 +74,5 @@ export function Chart({ labels, pieData }: { labels: string[], pieData: number[]
         }
     }
 
-    return <Pie data={data} options={options} />;
+    return <Pie options={options} data={data} />;
 }

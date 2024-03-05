@@ -18,41 +18,43 @@ type NavBar = {
     url: string
 }
 
+const DashboardIconStyle = { width: '40px', height: '40px', padding: '5px', color: '#00d1ff' };
+
 const links: NavBar[] = [
     {
         id: 1,
         title: "Dashboard",
-        icon: <DashboardIcon className='dashboard-icon' sx={{ width: '40px', height: '40px', padding: '5px', color: '#6C7293' }} />,
+        icon: <DashboardIcon sx={DashboardIconStyle} />,
         url: "/"
     },
     {
         id: 2,
         title: "Sales",
-        icon: <PointOfSaleIcon className='dashboard-icon' sx={{ width: '40px', height: '40px', padding: '5px', color: '#6C7293' }} />,
+        icon: <PointOfSaleIcon sx={DashboardIconStyle} />,
         url: "/sales"
     },
     {
         id: 3,
         title: "Purchases",
-        icon: <ShoppingCartIcon className='dashboard-icon' sx={{ width: '40px', height: '40px', padding: '5px', color: '#6C7293' }} />,
+        icon: <ShoppingCartIcon sx={DashboardIconStyle} />,
         url: "/purchases"
     },
     {
         id: 4,
         title: "Customers",
-        icon: <GroupsIcon className='dashboard-icon' sx={{ width: '40px', height: '40px', padding: '5px', color: '#6C7293' }} />,
+        icon: <GroupsIcon sx={DashboardIconStyle} />,
         url: "/customers"
     },
     {
         id: 5,
         title: "Suppliers",
-        icon: <HandshakeIcon className='dashboard-icon' sx={{ width: '40px', height: '40px', padding: '5px', color: '#6C7293' }} />,
+        icon: <HandshakeIcon sx={DashboardIconStyle} />,
         url: "/suppliers"
     },
     {
         id: 6,
         title: "Products",
-        icon: <InventoryIcon className='dashboard-icon' sx={{ width: '40px', height: '40px', padding: '5px', color: '#6C7293' }} />,
+        icon: <InventoryIcon sx={DashboardIconStyle} />,
         url: "/products"
     }
 ]
@@ -63,7 +65,6 @@ export default function Sidebar() {
     const navLinks = links.map((link: NavBar) => {
         return (
             <Link key={link.id} className={pathname == link.url ? 'nav-item active' : 'nav-item'} href={link.url}>
-                {/* <DashboardRoundedIcon className='dashboard-icon' sx={{width: '40px', height: '40px', padding: '5px', color: '#6C7293'}}/> */}
                 {link.icon}
                 {link.title}
             </Link>

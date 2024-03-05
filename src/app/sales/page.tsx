@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './page.module.css'
 import { getInvoices } from '../actions';
-import { euro } from '../../db/utils';
+import { euro } from '@/db/utils';
 
 export default async function Invoice() {
   const filteredInvoices = await getInvoices();

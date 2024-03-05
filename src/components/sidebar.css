@@ -6,12 +6,12 @@
 
 .logo p {
     font-weight: bold;
-    color: #EB1616;
+    color: #00d1ff;
 }
 
 .truck-icon {
     margin: 0 auto;
-    color: #EB1616;
+    color: #00d1ff;
 }
 
 .nav-item {
@@ -19,33 +19,27 @@
     align-items: center;
     box-sizing: border-box;
     border-radius: 0 30px 30px 0;
-    color: #6C7293;
-    border-left: 3px solid #191c24;
-    font-weight: 500;
+    color: #fff;
+    font-weight: bold;
+    border-left: 3px solid #272953;
     padding: 7px 20px;
 }
 
 .nav-item:hover {
-    color: #EB1616;
-    border-left: 3px solid #EB1616;
-    background-color: #000;
+    color: #00d1ff;
+    border-left: 3px solid #00d1ff;
+    background-color: #16113a;
     cursor: pointer;
 }
 
-.nav-item:hover .dashboard-icon,
-.active .dashboard-icon {
-    color: #EB1616;
-    /* margin-left: -3px; */
-}
-
 .active {
-    color: #EB1616;
-    border-left: 3px solid #EB1616;
-    background-color: #000;
+    color: #00d1ff;
+    border-left: 3px solid #00d1ff;
+    background-color: #16113a;
 }
   
 .sidebar {
-    background-color: #191c24;
+    background-color: #272953;
     position: fixed;
     width: 285px;
     height: 100%;
