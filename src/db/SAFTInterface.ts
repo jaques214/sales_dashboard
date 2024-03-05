@@ -29,7 +29,7 @@ export type Invoice = {
     invoiceDate:       string;
     invoiceType:       string;
     specialRegimes:    SpecialRegimes;
-    sourceID:          string;
+    sourceID:          string | "estg";
     systemEntryDate:   string;
     transactionID?:    string;
     customerID:        string;
@@ -44,25 +44,14 @@ export type Invoice = {
 export type InvoiceDocumentStatus = {
     invoiceStatus:     string;
     invoiceStatusDate: string;
-    sourceID:          string;
+    sourceID:          string | "estg";
     sourceBilling:     string;
     reason?:           string;
 }
 
-export enum WorkStatus {
-    A = "A",
-    N = "N",
-}
+export type WorkStatus = "A" | "N";
 
-export enum SourceBilling {
-    O = "O",
-    P = "P",
-}
-
-export enum SourceID {
-    Estg = "estg",
-    SourceIDESTG = "ESTG",
-}
+export type SourceBilling = "O" | "P";
 
 export type DocumentTotals = {
     taxPayable:  number;
@@ -73,10 +62,6 @@ export type DocumentTotals = {
 
 export type Settlement = {
     settlementAmount: number;
-}
-
-export enum InvoiceType {
-    Ft = "FT",
 }
 
 export type LineElement = {
@@ -101,29 +86,6 @@ export type Tax = {
     taxPercentage:    number;
 }
 
-export enum TaxCode {
-    Int = "INT",
-    Ise = "ISE",
-    Nor = "NOR",
-    Out = "OUT",
-    Red = "RED",
-}
-
-export enum TaxCountryRegion {
-    Pt = "PT",
-    PtAC = "PT-AC",
-    PtMa = "PT-MA",
-}
-
-export enum TaxType {
-    Is = "IS",
-    Iva = "IVA",
-}
-
-export enum UnitOfMeasure {
-    Pe2 = "PE2",
-}
-
 export type Ship = {
     deliveryDate: string;
     address:      Address;
@@ -136,13 +98,6 @@ export type Address = {
     postalCode:    string;
     region?:       string;
     country:       string;
-}
-
-export enum Country {
-    Desconhecido = "Desconhecido",
-    Es = "ES",
-    It = "IT",
-    Pt = "PT",
 }
 
 export type SpecialRegimes = {
@@ -165,7 +120,7 @@ export type Transaction = {
     transactionID:     string;
     period:            number;
     transactionDate:   string;
-    sourceID:          SourceID;
+    sourceID:          string | "estg";
     description:       string;
     docArchivalNumber: number;
     transactionType:   WorkStatus;
@@ -198,7 +153,7 @@ export type Payment = {
     paymentType:     string;
     documentStatus:  PaymentDocumentStatus;
     paymentMethod:   PaymentMethod;
-    sourceID:        SourceID;
+    sourceID:        string | "estg";
     systemEntryDate: string;
     customerID:      string;
     line:            PaymentLine;
@@ -208,7 +163,7 @@ export type Payment = {
 export type PaymentDocumentStatus = {
     paymentStatus:     WorkStatus;
     paymentStatusDate: string;
-    sourceID:          SourceID;
+    sourceID:          string | "estg";
     sourcePayment:     SourceBilling;
 }
 
@@ -240,7 +195,7 @@ export type WorkDocument = {
     period:          number;
     workDate:        string;
     workType:        string;
-    sourceID:        SourceID;
+    sourceID:        string | "estg";
     systemEntryDate: string;
     customerID:      string;
     line:            LineElement[];
@@ -250,7 +205,7 @@ export type WorkDocument = {
 export type WorkDocumentDocumentStatus = {
     workStatus:     WorkStatus;
     workStatusDate: string;
-    sourceID:       SourceID;
+    sourceID:       string | "estg";
     sourceBilling:  SourceBilling;
 }
 
@@ -309,12 +264,6 @@ export type Account = {
     groupingCategory:     string;
     groupingCode?:        number;
     taxonomyCode?:        number;
-}
-
-export enum GroupingCategory {
-    Ga = "GA",
-    Gm = "GM",
-    Gr = "GR",
 }
 
 export type Product = {

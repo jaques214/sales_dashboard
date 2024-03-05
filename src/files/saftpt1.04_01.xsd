@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Windows-1252"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:ns="urn:OECD:StandardAuditFile-Tax:PT_1.04_01"
     xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
     xmlns:doc="urn:schemas-basda-org:schema-extensions:documentation"
@@ -522,7 +522,7 @@
                                         <xs:element ref="MovementEndTime" minOccurs="0"
                                             maxOccurs="1"/>
                                         <xs:element ref="MovementStartTime" maxOccurs="1"/>
-                                        <!-- Nos documentos resumo (MovementStatus "R"), na falta desta informacao em concreto, a hora de inicio de transporte (MovementStartTime) pode ser indicada com a concatenacao da data constante no campo MovementDate com a hora 00:00:00-->
+                                        <!-- Nos documentos resumo (MovementStatus "R"), na falta desta informacao em concreto, a hora de início de transporte (MovementStartTime) pode ser indicada com a concatenacao da data constante no campo MovementDate com a hora 00:00:00-->
                                         <xs:element ref="ATDocCodeID" minOccurs="0" maxOccurs="1"/>
                                         <xs:element name="Line" maxOccurs="unbounded">
                                             <xs:complexType>
@@ -874,7 +874,7 @@
             <xs:element ref="TaxPercentage"/>
         </xs:sequence>
     </xs:complexType>
-    <!-- Estrutura de Referencias ao documento de origem-->
+    <!-- Estrutura de referências ao documento de origem-->
     <xs:complexType name="OrderReferences">
         <xs:sequence>
             <xs:element ref="OriginatingON" minOccurs="0"/>
@@ -901,13 +901,13 @@
             </xs:choice>
         </xs:sequence>
     </xs:complexType>
-    <!-- Estrutura de numero de serie do produto-->
+    <!-- Estrutura de número de serie do produto-->
     <xs:complexType name="ProductSerialNumber">
         <xs:sequence>
             <xs:element ref="SerialNumber" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
-    <!-- Estrutura de referencias a outros documentos em documentos retificativos de faturas-->
+    <!-- Estrutura de referências a outros documentos em documentos retificativos de faturas-->
     <xs:complexType name="References">
         <xs:sequence>
             <xs:element ref="Reference" minOccurs="0"/>
@@ -1082,7 +1082,7 @@
             </xs:restriction>
         </xs:simpleType>
     </xs:element>
-    <!-- Versao do estrutura do ficheiro -->    
+    <!-- Versão da estrutura do ficheiro -->
     <xs:element name="AuditFileVersion">
         <xs:simpleType>
             <xs:restriction base="xs:string">
@@ -1102,7 +1102,7 @@
     <!-- Identificacao da entidade a que respeitam os dados constantes no SAF-T-->
     <xs:element name="CompanyID">
         <xs:annotation>
-            <xs:documentation>Concatenacao da Conservatoria do Registo Comercial com o numero do
+            <xs:documentation>Concatenacao da Conservatoria do Registo Comercial com o número do
                 registo comercial separados pelo caracter espaco. Nos casos em que nao existe o
                 registo comercial, deve ser indicado o NIF.</xs:documentation>
         </xs:annotation>
@@ -1482,7 +1482,7 @@
     <xs:element name="WorkStatus">
         <xs:annotation>
             <xs:documentation>N para Normal, A para Anulado, F para faturado (quando para este
-                documento tambem existe na tabela 4.1. o correspondente do tipo fatura ou fatura
+                documento tambem existe na tabela 4.1. O correspondente do tipo fatura ou fatura
                 simplificada) </xs:documentation>
         </xs:annotation>
         <xs:simpleType>
@@ -1519,7 +1519,7 @@
                 <xs:enumeration value="OU"/>
                 <xs:enumeration value="OR"/>
                 <xs:enumeration value="PF"/>
-                <!-- Para para dados ate 2017-06-30-->
+                <!-- Para dados até 2017-06-30-->
                 <xs:enumeration value="DC"/>
                 <!-- Para o sector segurador-->
                 <xs:enumeration value="RP"/>
@@ -1560,7 +1560,7 @@
         <xs:restriction base="xs:string">
             <xs:enumeration value="EUR"/>
         </xs:restriction>
-    </xs:simpleType> 
+    </xs:simpleType>
     <!-- Codigo de de Imposto de pagamento-->
     <xs:simpleType name="PaymentTaxCode">
         <xs:restriction base="xs:string">
