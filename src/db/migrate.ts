@@ -1,13 +1,9 @@
+import 'dotenv/config';
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
-import { drizzle } from 'drizzle-orm/postgres-js';
-import postgres from 'postgres';
-
-const connectionString = "postgres://postgres:postgres@localhost:5432/EngenheirosPeles";
+import { drizzle } from 'drizzle-orm/node-postgres';
 
 // for migrations
-const migrationClient = postgres(connectionString, { max: 1 });
-
-migrate(drizzle(migrationClient), { migrationsFolder: "./drizzle" })
+migrate(drizzle(process.env.DATABASE_URL!), { migrationsFolder: "./drizzle" })
     .then(() => {
         console.info("Migrations complete!");
         process.exit(0);

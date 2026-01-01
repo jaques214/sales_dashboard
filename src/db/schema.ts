@@ -1,7 +1,5 @@
-import { InferModel, relations } from 'drizzle-orm';
-import { pgTable, serial, varchar, char, integer, smallint, date, time, numeric } from 'drizzle-orm/pg-core'
-import { PostgresJsDatabase, drizzle } from 'drizzle-orm/postgres-js';
-import postgres from 'postgres';
+import { relations } from 'drizzle-orm';
+import { pgTable, serial, varchar, char, integer, smallint, date, time, numeric } from 'drizzle-orm/pg-core';
 
 export const addresses = pgTable('address', {
     id: serial('id').primaryKey(),
@@ -11,7 +9,7 @@ export const addresses = pgTable('address', {
     country: char('country', { length: 2 }).default('PT'),
 });
 
-export type NewAddress = InferModel<typeof addresses, 'insert'>;
+export type NewAddress = typeof addresses.$inferInsert;
 
 export const header = pgTable('company_header', {
     id: serial('id').primaryKey(),
@@ -26,7 +24,7 @@ export const header = pgTable('company_header', {
     addressID: integer('address_id').references(() => addresses.id),
 });
 
-export type NewHeader = InferModel<typeof header, 'insert'>;
+export type NewHeader = typeof header.$inferInsert;
 
 export const customers = pgTable('customer', {
     id: varchar('id').primaryKey(),
@@ -35,8 +33,8 @@ export const customers = pgTable('customer', {
     billingAddressID: integer('billing_address_id').references(() => addresses.id),
 });
 
-export type Customer = InferModel<typeof customers>;
-export type NewCustomer = InferModel<typeof customers, 'insert'>;
+export type Customer = typeof customers.$inferSelect;
+export type NewCustomer = typeof customers.$inferInsert;
 
 export const suppliers = pgTable('supplier', {
     taxID: varchar('tax_id', { length: 11 }).primaryKey(),
@@ -51,7 +49,8 @@ export const products = pgTable('product', {
     description: varchar('description', { length: 200 }),
 })
 
-export type Product = InferModel<typeof products>;
+export type Product = typeof products.$inferSelect;
+export type NewProduct = typeof products.$inferInsert;
 
 export const invoices = pgTable('invoice', {
     id: varchar('id').primaryKey(),
@@ -75,8 +74,8 @@ export const invoiceRelations = relations(invoices, ({ one, many }) => ({
     line: many(invoiceLines)
 }));
 
-export type NewInvoice = InferModel<typeof invoices, 'insert'>;
-export type Invoice = InferModel<typeof invoices, 'select'>;
+export type NewInvoice = typeof invoices.$inferInsert;
+export type Invoice = typeof invoices.$inferSelect;
 
 export const invoiceLines = pgTable('invoice_lines', {
     id: serial('id').primaryKey(),
@@ -90,7 +89,7 @@ export const invoiceLines = pgTable('invoice_lines', {
     taxTableID: integer('tax_table_id').references(() => taxTable.id),
 });
 
-export type NewInvoiceLine = InferModel<typeof invoiceLines, 'insert'>;
+export type NewInvoiceLine = typeof invoiceLines.$inferInsert;
 
 export const invoiceLineRelations = relations(invoiceLines, ({ one }) => ({
     invoice: one(invoices, {
@@ -116,7 +115,7 @@ export const taxTable = pgTable('tax_table', {
     taxPercentage: numeric('tax_percentage', { precision: 5, scale: 2 }),
 });
 
-export type NewTaxTable = InferModel<typeof taxTable, 'insert'>;
+export type NewTaxTable = typeof taxTable.$inferInsert;
 
 export const payments = pgTable('payments', {
     paymentRefNo: varchar('payment_ref_no').primaryKey(),
@@ -129,7 +128,7 @@ export const payments = pgTable('payments', {
     customerID: varchar('customer_id').references(() => customers.id)
 });
 
-export type NewPayment = InferModel<typeof payments, 'insert'>;
+export type NewPayment = typeof payments.$inferInsert;
 
 export const paymentRelations = relations(payments, ({ one }) => ({
     customer: one(customers, {
@@ -150,7 +149,7 @@ export const paymentLines = pgTable('payment_lines', {
     taxTableID: integer('tax_table_id').references(() => taxTable.id)
 })
 
-export type NewPaymentLine = InferModel<typeof paymentLines, 'insert'>;
+export type NewPaymentLine = typeof paymentLines.$inferInsert;
 
 export const paymentLinesRelations = relations(paymentLines, ({ one }) => ({
     taxTable: one(taxTable, {
@@ -186,7 +185,7 @@ export const transactionLines = pgTable('transaction_lines', {
     transactionID: varchar('transaction_id').references(() => transactions.id),
 });
 
-export type NewTransactionLine = InferModel<typeof transactionLines, 'insert'>;
+export type NewTransactionLine = typeof transactionLines.$inferInsert;
 
 export const stockMovement = pgTable('stock_movement', {
     documentID: varchar('document_id', { length: 60 }).primaryKey(),
@@ -285,8 +284,3 @@ export const addressesRelations = relations(addresses, ({ one }) => ({
         references: [shippingAddress.addressID],
     }),
 }));
-
-const connectionString = "postgres://postgres:postgres@localhost:5432/EngenheirosPeles";
-
-const queryClient = postgres(connectionString);
-export const db: PostgresJsDatabase = drizzle(queryClient);

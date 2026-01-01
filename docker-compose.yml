@@ -1,27 +1,25 @@
 # Use postgres/example user/password credentials
-version: '3.9'
-
 services:
-
   db:
-    image: postgres
+    image: postgres:latest
+    container_name: postgresDBEngenheirosPeles
     restart: always
-    container_name: postgres
-    
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       PGDATA: /var/lib/postgresql/data
     ports:
-      - '5432:5432'
-    volumes: 
+      - '5440:5432'
+    volumes:
       - db-data:/var/lib/postgresql/data
 
   adminer:
-    image: adminer
+    image: adminer:latest
+    container_name: adminerEngenheirosPeles
     restart: always
     ports:
-      - "8080:8080"
+      - '8086:8080'
+
 volumes:
   db-data:
     driver: local

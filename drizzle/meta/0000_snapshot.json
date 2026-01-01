@@ -1,10 +1,8 @@
 {
-  "version": "5",
-  "dialect": "pg",
-  "id": "ddb28fab-c8e6-49fb-95b9-886d0c7982ae",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
   "tables": {
-    "address": {
+    "public.address": {
       "name": "address",
       "schema": "",
       "columns": {
@@ -43,9 +41,12 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "customer": {
+    "public.customer": {
       "name": "customer",
       "schema": "",
       "columns": {
@@ -79,21 +80,24 @@
         "customer_billing_address_id_address_id_fk": {
           "name": "customer_billing_address_id_address_id_fk",
           "tableFrom": "customer",
-          "tableTo": "address",
           "columnsFrom": [
             "billing_address_id"
           ],
+          "tableTo": "address",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "company_header": {
+    "public.company_header": {
       "name": "company_header",
       "schema": "",
       "columns": {
@@ -163,29 +167,32 @@
         "company_header_address_id_address_id_fk": {
           "name": "company_header_address_id_address_id_fk",
           "tableFrom": "company_header",
-          "tableTo": "address",
           "columnsFrom": [
             "address_id"
           ],
+          "tableTo": "address",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "company_header_tax_number_unique": {
           "name": "company_header_tax_number_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "tax_number"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
-      }
+      },
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "invoice_lines": {
+    "public.invoice_lines": {
       "name": "invoice_lines",
       "schema": "",
       "columns": {
@@ -249,47 +256,50 @@
         "invoice_lines_invoice_id_invoice_id_fk": {
           "name": "invoice_lines_invoice_id_invoice_id_fk",
           "tableFrom": "invoice_lines",
-          "tableTo": "invoice",
           "columnsFrom": [
             "invoice_id"
           ],
+          "tableTo": "invoice",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "invoice_lines_product_code_product_id_fk": {
           "name": "invoice_lines_product_code_product_id_fk",
           "tableFrom": "invoice_lines",
-          "tableTo": "product",
           "columnsFrom": [
             "product_code"
           ],
+          "tableTo": "product",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "invoice_lines_tax_table_id_tax_table_id_fk": {
           "name": "invoice_lines_tax_table_id_tax_table_id_fk",
           "tableFrom": "invoice_lines",
-          "tableTo": "tax_table",
           "columnsFrom": [
             "tax_table_id"
           ],
+          "tableTo": "tax_table",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "invoice": {
+    "public.invoice": {
       "name": "invoice",
       "schema": "",
       "columns": {
@@ -341,21 +351,24 @@
         "invoice_customer_id_customer_id_fk": {
           "name": "invoice_customer_id_customer_id_fk",
           "tableFrom": "invoice",
-          "tableTo": "customer",
           "columnsFrom": [
             "customer_id"
           ],
+          "tableTo": "customer",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "payment_lines": {
+    "public.payment_lines": {
       "name": "payment_lines",
       "schema": "",
       "columns": {
@@ -395,47 +408,50 @@
         "payment_lines_originating_on_invoice_id_fk": {
           "name": "payment_lines_originating_on_invoice_id_fk",
           "tableFrom": "payment_lines",
-          "tableTo": "invoice",
           "columnsFrom": [
             "originating_on"
           ],
+          "tableTo": "invoice",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "payment_lines_payment_id_payments_payment_ref_no_fk": {
           "name": "payment_lines_payment_id_payments_payment_ref_no_fk",
           "tableFrom": "payment_lines",
-          "tableTo": "payments",
           "columnsFrom": [
             "payment_id"
           ],
+          "tableTo": "payments",
           "columnsTo": [
             "payment_ref_no"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "payment_lines_tax_table_id_tax_table_id_fk": {
           "name": "payment_lines_tax_table_id_tax_table_id_fk",
           "tableFrom": "payment_lines",
-          "tableTo": "tax_table",
           "columnsFrom": [
             "tax_table_id"
           ],
+          "tableTo": "tax_table",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "payments": {
+    "public.payments": {
       "name": "payments",
       "schema": "",
       "columns": {
@@ -493,21 +509,24 @@
         "payments_customer_id_customer_id_fk": {
           "name": "payments_customer_id_customer_id_fk",
           "tableFrom": "payments",
-          "tableTo": "customer",
           "columnsFrom": [
             "customer_id"
           ],
+          "tableTo": "customer",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "product": {
+    "public.product": {
       "name": "product",
       "schema": "",
       "columns": {
@@ -533,9 +552,12 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "shipping_address": {
+    "public.shipping_address": {
       "name": "shipping_address",
       "schema": "",
       "columns": {
@@ -569,34 +591,37 @@
         "shipping_address_stock_movement_id_stock_movement_document_id_fk": {
           "name": "shipping_address_stock_movement_id_stock_movement_document_id_fk",
           "tableFrom": "shipping_address",
-          "tableTo": "stock_movement",
           "columnsFrom": [
             "stock_movement_id"
           ],
+          "tableTo": "stock_movement",
           "columnsTo": [
             "document_id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "shipping_address_address_id_address_id_fk": {
           "name": "shipping_address_address_id_address_id_fk",
           "tableFrom": "shipping_address",
-          "tableTo": "address",
           "columnsFrom": [
             "address_id"
           ],
+          "tableTo": "address",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "stock_movement": {
+    "public.stock_movement": {
       "name": "stock_movement",
       "schema": "",
       "columns": {
@@ -666,21 +691,24 @@
         "stock_movement_customer_id_customer_id_fk": {
           "name": "stock_movement_customer_id_customer_id_fk",
           "tableFrom": "stock_movement",
-          "tableTo": "customer",
           "columnsFrom": [
             "customer_id"
           ],
+          "tableTo": "customer",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "stock_movement_line": {
+    "public.stock_movement_line": {
       "name": "stock_movement_line",
       "schema": "",
       "columns": {
@@ -738,47 +766,50 @@
         "stock_movement_line_stock_movement_id_stock_movement_document_id_fk": {
           "name": "stock_movement_line_stock_movement_id_stock_movement_document_id_fk",
           "tableFrom": "stock_movement_line",
-          "tableTo": "stock_movement",
           "columnsFrom": [
             "stock_movement_id"
           ],
+          "tableTo": "stock_movement",
           "columnsTo": [
             "document_id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "stock_movement_line_product_code_product_id_fk": {
           "name": "stock_movement_line_product_code_product_id_fk",
           "tableFrom": "stock_movement_line",
-          "tableTo": "product",
           "columnsFrom": [
             "product_code"
           ],
+          "tableTo": "product",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "stock_movement_line_tax_table_id_tax_table_id_fk": {
           "name": "stock_movement_line_tax_table_id_tax_table_id_fk",
           "tableFrom": "stock_movement_line",
-          "tableTo": "tax_table",
           "columnsFrom": [
             "tax_table_id"
           ],
+          "tableTo": "tax_table",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "supplier": {
+    "public.supplier": {
       "name": "supplier",
       "schema": "",
       "columns": {
@@ -812,21 +843,24 @@
         "supplier_address_id_address_id_fk": {
           "name": "supplier_address_id_address_id_fk",
           "tableFrom": "supplier",
-          "tableTo": "address",
           "columnsFrom": [
             "address_id"
           ],
+          "tableTo": "address",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "tax_table": {
+    "public.tax_table": {
       "name": "tax_table",
       "schema": "",
       "columns": {
@@ -870,9 +904,12 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "transaction_lines": {
+    "public.transaction_lines": {
       "name": "transaction_lines",
       "schema": "",
       "columns": {
@@ -900,21 +937,24 @@
         "transaction_lines_transaction_id_transaction_id_fk": {
           "name": "transaction_lines_transaction_id_transaction_id_fk",
           "tableFrom": "transaction_lines",
-          "tableTo": "transaction",
           "columnsFrom": [
             "transaction_id"
           ],
+          "tableTo": "transaction",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "transaction": {
+    "public.transaction": {
       "name": "transaction",
       "schema": "",
       "columns": {
@@ -942,19 +982,22 @@
         "transaction_supplier_id_supplier_tax_id_fk": {
           "name": "transaction_supplier_id_supplier_tax_id_fk",
           "tableFrom": "transaction",
-          "tableTo": "supplier",
           "columnsFrom": [
             "supplier_id"
           ],
+          "tableTo": "supplier",
           "columnsTo": [
             "tax_id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     }
   },
   "enums": {},
@@ -963,5 +1006,11 @@
     "schemas": {},
     "tables": {},
     "columns": {}
-  }
+  },
+  "id": "ddb28fab-c8e6-49fb-95b9-886d0c7982ae",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "sequences": {},
+  "policies": {},
+  "views": {},
+  "roles": {}
 }

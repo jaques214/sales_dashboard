@@ -1,9 +1,9 @@
 'use server';
 
+import { db } from '@/index'
 import {
     addresses,
     customers,
-    db,
     invoiceLines,
     invoices,
     Product,

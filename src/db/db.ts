@@ -1,14 +1,7 @@
-import { drizzle, PostgresJsDatabase } from 'drizzle-orm/postgres-js';
-import postgres from 'postgres';
+import { db } from '@/index';
 import { Address, Customer, DocumentTotals, Invoice, LineElement, Payment, Product, Supplier, Tax, Transaction } from "./SAFTInterface";
 import { invoices01, customers01, products01, taxTable01, header01, suppliers01, transactions01, payments01 } from "./utils";
 import { addresses, customers, NewAddress, transactions, NewHeader, header, suppliers, products, taxTable, NewTaxTable, invoices, NewInvoice, invoiceLines, NewInvoiceLine, NewPayment, payments, paymentLines, NewPaymentLine, transactionLines, NewTransactionLine } from './schema';
-
-const connectionString = "postgres://postgres:postgres@localhost:5432/EngenheirosPeles";
-
-// for query purposes
-const queryClient = postgres(connectionString);
-export const db: PostgresJsDatabase = drizzle(queryClient);
 
 async function main() {
     const companyAddress = header01.companyAddress;

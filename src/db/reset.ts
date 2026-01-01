@@ -1,13 +1,6 @@
-import { drizzle, PostgresJsDatabase } from 'drizzle-orm/postgres-js';
-import postgres from 'postgres';
+import { db } from '@/index';
 import { addresses, customers, transactions, header, suppliers, products, taxTable, invoices, invoiceLines, payments, paymentLines, transactionLines } from './schema';
 import { sql } from 'drizzle-orm';
-
-const connectionString = "postgres://postgres:postgres@localhost:5432/EngenheirosPeles";
-
-// for query purposes
-const queryClient = postgres(connectionString);
-export const db: PostgresJsDatabase = drizzle(queryClient);
 
 async function reset() {
     await db.execute(sql`TRUNCATE TABLE ${transactionLines} RESTART IDENTITY;`)
