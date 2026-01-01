@@ -111,7 +111,7 @@ async function main() {
 
     const insertedTaxTable: NewTaxTable[] = await db.insert(taxTable).values(newTaxTable).returning();
 
-    let newLine: NewInvoiceLine[] = [];
+    const newLine: NewInvoiceLine[] = [];
 
     const newInvoices: NewInvoice[] = invoices01.map((invoice: Invoice) => {
         const key = invoice.invoiceNo.replace(' ', '.');
@@ -161,7 +161,7 @@ async function main() {
 
     await db.insert(invoiceLines).values(newLine).returning();
 
-    let newPaymentLine: NewPaymentLine[] = [];
+    const newPaymentLine: NewPaymentLine[] = [];
 
     const newPayments: NewPayment[] = payments01.map((payment: Payment) => {
         const key = payment.paymentRefNo.replace(' ', '.');
@@ -205,7 +205,7 @@ async function main() {
 
     await db.insert(paymentLines).values(newPaymentLine).returning();
 
-    let newTLines: NewTransactionLine[] = []
+    const newTLines: NewTransactionLine[] = []
 
     const newTransactions = transactions01.map((transaction: Transaction) => {
         const supplierTaxID = transaction.supplierID!.substring(0, transaction.supplierID!.length - 2);
