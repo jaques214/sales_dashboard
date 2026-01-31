@@ -48,7 +48,7 @@ type TopProducts = {
     product: string | null,
     unit: string | null,
     quantity: number,
-    invoicetotal: number,
+    invoiceTotal: number,
 }
 
 export async function getInvoices() {
@@ -168,7 +168,7 @@ export async function getTopProducts() {
             product: products.description,
             unit: invoiceLines.unitPrice,
             quantity: sql<number>`sum(${invoiceLines.quantity})`,
-            invoicetotal: sql<number>`sum(${invoiceLines.creditAmount})`,
+            invoiceTotal: sql<number>`sum(${invoiceLines.creditAmount})`,
         }).from(invoiceLines).innerJoin(products, eq(invoiceLines.productCode, products.id))
             .groupBy(sql`${products.description}, ${invoiceLines.unitPrice}`).limit(3).orderBy(sql<number>`sum(${invoiceLines.creditAmount}) desc`)
     }

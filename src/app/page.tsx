@@ -88,7 +88,7 @@ export default async function Home() {
                       <td>{topProd.product}</td>
                       <td>{euro.format(Number.parseInt(topProd.unit!))}</td>
                       <td>{topProd.quantity}</td>
-                      <td>{euro.format(topProd.invoicetotal)}</td>
+                      <td>{euro.format(topProd.invoiceTotal)}</td>
                     </tr>
                   )
                 })

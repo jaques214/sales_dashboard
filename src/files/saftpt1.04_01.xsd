@@ -138,7 +138,7 @@
             <xs:field xpath="ns:CustomerID"/>
         </xs:keyref>
     </xs:element>
-    <!-- Estrutura de cabecalho (AuditFile.Header) -->
+    <!-- Estrutura de cabeçalho (AuditFile.Header) -->
     <xs:element name="Header">
         <xs:complexType>
             <xs:sequence>

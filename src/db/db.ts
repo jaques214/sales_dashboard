@@ -43,9 +43,9 @@ async function main() {
     const insertedAddresses = await db.insert(addresses).values(newAddresses).returning();
 
     const newCustomers = customers01.map((customer: Customer) => {
-        const billingAdddress: Address = customer.billingAddress;
+        const billingAddress: Address = customer.billingAddress;
 
-        const addr = insertedAddresses.find((element) => element.postalCode === billingAdddress.postalCode)
+        const addr = insertedAddresses.find((element) => element.postalCode === billingAddress.postalCode)
 
         return {
             id: `PT${customer.customerTaxID}`,
