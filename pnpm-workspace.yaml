@@ -1,2 +1,4 @@
 overrides:
-  esbuild@<=0.24.2: '>=0.25.0'
+  # Pin esbuild to a patched release to avoid known dev-server information leak
+  # Force all esbuild versions to at least this secured version.
+  esbuild: 0.27.3
