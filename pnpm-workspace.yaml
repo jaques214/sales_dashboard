@@ -1,3 +1,11 @@
+allowBuilds:
+  esbuild: set this to true or false
+  sharp: set this to true or false
+  unrs-resolver: set this to true or false
+minimumReleaseAgeExclude:
+  - esbuild@0.28.1
+  - js-yaml@4.1.2
+  - '@babel/core@7.29.1'
 overrides:
   esbuild@<=0.24.2: '>=0.25.0'
   postcss@<8.5.10: '>=8.5.10'
